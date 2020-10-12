@@ -7,26 +7,26 @@ using System.Text;
 
 namespace BLL
 {
-    public partial class ItemBusiness : IItemBusiness
+    public partial class ProductBusiness : IProductBusiness
     {
-        private IItemRepository _res;
-        public ItemBusiness(IItemRepository ItemGroupRes)
+        private IProductRepository _res;
+        public ProductBusiness(IProductRepository ItemGroupRes)
         {
             _res = ItemGroupRes;
         }
-        public bool Create(ItemModel model)
+        public bool Create(ProductModel model)
         {
             return _res.Create(model);
         }
-        public ItemModel GetDatabyID(string id)
+        public ProductModel GetDatabyID(string id)
         {
             return _res.GetDatabyID(id);
         }
-        public List<ItemModel> GetDataAll()
+        public List<ProductModel> GetDataAll()
         {
             return _res.GetDataAll();
         }
-        public List<ItemModel> Search(int pageIndex, int pageSize, out long total, string item_group_id)
+        public List<ProductModel> Search(int pageIndex, int pageSize, out long total, string item_group_id)
         {
             return _res.Search(pageIndex, pageSize, out total, item_group_id);
         }

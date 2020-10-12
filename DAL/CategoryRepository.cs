@@ -7,15 +7,15 @@ using System.Text;
 
 namespace DAL
 {
-    public partial class ItemGroupRepository : IItemGroupRepository
+    public partial class CategoryRepository : ICategoryRepository
     {
         private IDatabaseHelper _dbHelper;
-        public ItemGroupRepository(IDatabaseHelper dbHelper)
+        public CategoryRepository(IDatabaseHelper dbHelper)
         {
             _dbHelper = dbHelper;
         }
 
-        public List<ItemGroupModel> GetData()
+        public List<CategoryModel> GetData()
         {
             string msgError = "";
             try
@@ -23,7 +23,7 @@ namespace DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_item_group_get_data");
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<ItemGroupModel>().ToList();
+                return dt.ConvertTo<CategoryModel>().ToList();
             }
             catch (Exception ex)
             {

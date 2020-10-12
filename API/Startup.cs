@@ -38,10 +38,10 @@ namespace API
             });
             services.AddControllers();
             services.AddTransient<IDatabaseHelper, DatabaseHelper>();
-            services.AddTransient<IItemGroupRepository, ItemGroupRepository>();
-            services.AddTransient<IItemGroupBusiness, ItemGroupBusiness>();
-            services.AddTransient<IItemRepository, ItemRepository>();
-            services.AddTransient<IItemBusiness, ItemBusiness>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICategoryBusiness, CategoryBusiness>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductBusiness, ProductBusiness>();
             //services.AddTransient<ICustomerRepository, CustomerRepository>();
             //services.AddTransient<ICustomerBusiness, CustomerBusiness>();
             //services.AddTransient<IHoaDonRepository, HoaDonRepository>();

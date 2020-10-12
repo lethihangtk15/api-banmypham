@@ -11,17 +11,17 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private IItemBusiness _itemBusiness;
-        public ItemController(IItemBusiness itemBusiness)
+        private IProductBusiness _itemBusiness;
+        public ProductController(IProductBusiness itemBusiness)
         {
             _itemBusiness = itemBusiness;
         }
 
         [Route("create-item")]
         [HttpPost]
-        public ItemModel CreateItem([FromBody] ItemModel model)
+        public ProductModel CreateItem([FromBody] ProductModel model)
         {
             _itemBusiness.Create(model);
             return model;
@@ -29,13 +29,13 @@ namespace API.Controllers
 
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public ItemModel GetDatabyID(string id)
+        public ProductModel GetDatabyID(string id)
         {
             return _itemBusiness.GetDatabyID(id);
         }
         [Route("get-all")]
         [HttpGet]
-        public IEnumerable<ItemModel> GetDatabAll()
+        public IEnumerable<ProductModel> GetDatabAll()
         {
             return _itemBusiness.GetDataAll();
         }
@@ -50,7 +50,7 @@ namespace API.Controllers
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
                 string item_group_id = "";
-                if (formData.Keys.Contains("item_group_id") && !string.IsNullOrEmpty(Convert.ToString(formData["item_group_id"]))) { item_group_id = Convert.ToString(formData["item_group_id"]); }
+                if (formData.Keys.Contains("category_id") && !string.IsNullOrEmpty(Convert.ToString(formData["category_id"]))) { item_group_id = Convert.ToString(formData["item_group_id"]); }
                 long total = 0;
                 var data = _itemBusiness.Search(page, pageSize, out total, item_group_id);
                 response.TotalItems = total;

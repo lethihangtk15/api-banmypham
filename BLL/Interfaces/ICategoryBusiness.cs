@@ -5,8 +5,8 @@ using System.Text;
 
 namespace BLL
 {
-    public partial interface IItemGroupBusiness
+    public partial interface ICategoryBusiness
     {
-        List<ItemGroupModel> GetData();
+        List<CategoryModel> GetData();
     }
 }

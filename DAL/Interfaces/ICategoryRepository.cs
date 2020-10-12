@@ -6,8 +6,8 @@ using Model;
 
 namespace DAL
 {
-    public partial interface IItemGroupRepository
+    public partial interface ICategoryRepository
     {
-        List<ItemGroupModel> GetData();
+        List<CategoryModel> GetData();
     }
 }

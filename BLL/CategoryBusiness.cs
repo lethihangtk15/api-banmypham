@@ -7,27 +7,27 @@ using System.Text;
 
 namespace BLL
 {
-    public partial class ItemGroupBusiness : IItemGroupBusiness
+    public partial class CategoryBusiness : ICategoryBusiness
     {
-        private IItemGroupRepository _res;
-        public ItemGroupBusiness(IItemGroupRepository ItemGroupRes)
+        private ICategoryRepository _res;
+        public CategoryBusiness(ICategoryRepository ItemGroupRes)
         {
             _res = ItemGroupRes;
         }
 
-        public List<ItemGroupModel> GetData()
+        public List<CategoryModel> GetData()
         {
             var allItemGroups = _res.GetData();
-            var lstParent = allItemGroups.Where(ds => ds.parent_item_group_id == null).OrderBy(s => s.seq_num).ToList();
+            var lstParent = allItemGroups.Where(ds => ds.parent_category_id == null).OrderBy(s => s.seq_num).ToList();
             foreach (var item in lstParent)
             {
                 item.children = GetHiearchyList(allItemGroups, item);
             }
             return lstParent;
         }
-        public List<ItemGroupModel> GetHiearchyList(List<ItemGroupModel> lstAll, ItemGroupModel node)
+        public List<CategoryModel> GetHiearchyList(List<CategoryModel> lstAll, CategoryModel node)
         {
-            var lstChilds = lstAll.Where(ds => ds.parent_item_group_id == node.item_group_id).ToList();
+            var lstChilds = lstAll.Where(ds => ds.parent_category_id == node.category_id).ToList();
             if (lstChilds.Count == 0)
                 return null;
             for (int i = 0; i < lstChilds.Count; i++)

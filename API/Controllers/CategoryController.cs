@@ -11,17 +11,17 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemGroupController : ControllerBase
+    public class CategoryController : ControllerBase
     {
-        private IItemGroupBusiness _itemGroupBusiness;
-        public ItemGroupController(IItemGroupBusiness itemGroupBusiness)
+        private ICategoryBusiness _itemGroupBusiness;
+        public CategoryController(ICategoryBusiness itemGroupBusiness)
         {
             _itemGroupBusiness = itemGroupBusiness;
         }
 
         [Route("get-menu")]
         [HttpGet]
-        public IEnumerable<ItemGroupModel> GetAllMenu()
+        public IEnumerable<CategoryModel> GetAllMenu()
         {
             return _itemGroupBusiness.GetData();
         }
