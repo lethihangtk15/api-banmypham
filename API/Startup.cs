@@ -46,24 +46,28 @@ namespace API
             //services.AddTransient<ICustomerBusiness, CustomerBusiness>();
             //services.AddTransient<IHoaDonRepository, HoaDonRepository>();
             //services.AddTransient<IHoaDonBusiness, HoaDonBusiness>();
+            services.AddTransient<IUserBusiness, UserBusiness>();
+            services.AddTransient<IUserRepository, UserRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseApiMiddleware();
             app.UseRouting();
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors("AllowAll");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            app.UseHttpsRedirection();
         }
     }
 }

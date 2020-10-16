@@ -74,7 +74,42 @@ namespace DAL
                 throw ex;
             }
         }
-        public List<ProductModel> Search(int pageIndex, int pageSize, out long total, string item_group_id)
+        public List<ProductModel> GetDataNew()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_new");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ProductModel> GetProductRelated(int product_id, string category_id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_product_related",
+                    "@product_id", product_id,
+                    "@category_id", category_id
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ProductModel> Search(int pageIndex, int pageSize, out long total, string category_id)
         {
             string msgError = "";
             total = 0;
@@ -83,7 +118,7 @@ namespace DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
-                    "@item_group_id", item_group_id);
+                    "@category_id", category_id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
