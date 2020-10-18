@@ -46,11 +46,11 @@ namespace API.Controllers
             return _productBusiness.GetDataNew();
         }
 
-        [Route("get-product-related/{product_id}/{category_id}")]
+        [Route("get-sptuongtu/{id}")]
         [HttpGet]
-        public IEnumerable<ProductModel> GetProductRelated(int product_id, string category_id)
+        public IEnumerable<ProductModel> GetSPTuongTu(int id)
         {
-            return _productBusiness.GetProductRelated(product_id, category_id);
+            return _productBusiness.GetSPTuongTu(id);
         }
 
         [Route("search")]

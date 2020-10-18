@@ -30,9 +30,9 @@ namespace BLL
         {
             return _res.GetDataNew();
         }
-        public List<ProductModel> GetProductRelated(int product_id, string category_id)
+        public List<ProductModel> GetSPTuongTu(int product_id)
         {
-            return _res.GetProductRelated(product_id, category_id);
+            return _res.GetSPTuongTu(product_id);
         }
 
         public List<ProductModel> Search(int pageIndex, int pageSize, out long total, string category_id)
