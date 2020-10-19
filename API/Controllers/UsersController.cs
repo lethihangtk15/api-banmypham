@@ -105,7 +105,7 @@ namespace API.Controllers
                     SaveFileFromBase64String(savePath, arrData[2]);
                 }
             }
-            _userBusiness.Create(model);
+            _userBusiness.Update(model);
             return model;
         }
 
@@ -128,7 +128,7 @@ namespace API.Controllers
                 string hoten = "";
                 if (formData.Keys.Contains("hoten") && !string.IsNullOrEmpty(Convert.ToString(formData["hoten"]))) { hoten = Convert.ToString(formData["hoten"]); }
                 string taikhoan = "";
-                if (formData.Keys.Contains("taikhoan") && !string.IsNullOrEmpty(Convert.ToString(formData["taikhoan"]))) { hoten = Convert.ToString(formData["taikhoan"]); }
+                if (formData.Keys.Contains("taikhoan") && !string.IsNullOrEmpty(Convert.ToString(formData["taikhoan"]))) { taikhoan = Convert.ToString(formData["taikhoan"]); }
                 long total = 0;
                 var data = _userBusiness.Search(page, pageSize, out total, hoten, taikhoan);
                 response.TotalItems = total;
