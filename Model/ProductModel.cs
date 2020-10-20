@@ -17,6 +17,6 @@ namespace Model
         public int product_status { get; set; }
         public string category_id { get; set; }
         public string brand_id { get; set; }
-
+        public long? total { get; set; }
     }
 }

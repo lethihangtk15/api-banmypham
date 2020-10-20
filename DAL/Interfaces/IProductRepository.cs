@@ -9,7 +9,7 @@ namespace DAL
     {
         bool Create(ProductModel model);
         ProductModel GetDatabyID(string id);
-        List<ProductModel> GetDataAll();
+        List<ProductModel> GetDataAll(int page_index, int page_size, out long total);
         List<ProductModel> GetDataNew();
         List<ProductModel> GetSPTuongTu(int product_id);
 

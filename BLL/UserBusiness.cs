@@ -1,4 +1,6 @@
-﻿using DAL;
+﻿using BLL.Interfaces;
+using DAL;
+using DAL.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Model;

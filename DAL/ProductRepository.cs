@@ -59,14 +59,16 @@ namespace DAL
                 throw ex;
             }
         }
-        public List<ProductModel> GetDataAll()
+        public List<ProductModel> GetDataAll(int page_index,int page_size,out long total)
         {
+            total = 0;
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_all");
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_all", "@page_index", page_index, "@page_size", page_size);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
                 return dt.ConvertTo<ProductModel>().ToList();
             }
             catch (Exception ex)

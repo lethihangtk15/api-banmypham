@@ -22,9 +22,9 @@ namespace BLL
         {
             return _res.GetDatabyID(id);
         }
-        public List<ProductModel> GetDataAll()
+        public List<ProductModel> GetDataAll(int page_index, int page_size, out long total)
         {
-            return _res.GetDataAll();
+            return _res.GetDataAll(page_index, page_size, out total);
         }
         public List<ProductModel> GetDataNew()
         {

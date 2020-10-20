@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL
+namespace DAL.Interfaces
 {
     public interface IUserRepository
     {
