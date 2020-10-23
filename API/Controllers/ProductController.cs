@@ -60,7 +60,7 @@ namespace API.Controllers
                 var arrData = model.product_image.Split(';');
                 if (arrData.Length == 3)
                 {
-                    var savePath = $@"assets/images/product/{arrData[0]}";
+                    var savePath = $@"{arrData[0]}";
                     model.product_image = $"{savePath}";
                     SaveFileFromBase64String(savePath, arrData[2]);
                 }
