@@ -7,40 +7,25 @@ using System.Text;
 
 namespace DAL
 {
-    public partial class CategoryRepository : ICategoryRepository
+    public partial class CustomerRepository:ICustomerRepository
     {
         private IDatabaseHelper _dbHelper;
-        public CategoryRepository(IDatabaseHelper dbHelper)
+        public CustomerRepository(IDatabaseHelper dbHelper)
         {
             _dbHelper = dbHelper;
         }
 
-        public List<CategoryModel> GetData()
+        public bool CreateCustomer(CustomerModel model)
         {
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_category_get_data");
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                return dt.ConvertTo<CategoryModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public bool Create(CategoryModel model)
-        {
-            string msgError = "";
-            try
-            {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_category_create",
-                "@parent_category_id", model.parent_category_id,
-                "@category_id", model.category_id,
-                "@category_name", model.category_name,
-                //"@desc", model.desc,
-                "@url", model.url);
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_customer_create",
+                "@customer_email", model.customer_email,
+                "@customer_password", model.customer_password,
+                "@customer_name", model.customer_name,
+                "@customer_phone", model.customer_phone,
+                "@customer_address", model.customer_address);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -58,8 +43,8 @@ namespace DAL
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_category_delete",
-                "@category_id", id);
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_customer_delete",
+                "@customer_id", id);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -71,17 +56,19 @@ namespace DAL
                 throw ex;
             }
         }
-        public bool Update(CategoryModel model)
+        public bool Update(CustomerModel model)
         {
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_category_update",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_customer_update",
 
-                "@category_id", model.category_id,
-                "@category_name", model.category_name,
-                //"@desc", model.desc,
-                "@url", model.url);
+                "@customer_id", model.customer_id,
+                "@customer_email", model.customer_email,
+                "@customer_name", model.customer_name,
+                "@customer_phone", model.customer_phone,
+                "@customer_address", model.customer_address,
+                "@customer_password", model.customer_password);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -93,36 +80,37 @@ namespace DAL
                 throw ex;
             }
         }
-        public CategoryModel GetDatabyID(string id)
+        public CustomerModel GetDatabyID(string id)
         {
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_category_get_by_id",
-                     "@category_id", id);
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_customer_get_by_id",
+                     "@customer_id", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<CategoryModel>().FirstOrDefault();
+                return dt.ConvertTo<CustomerModel>().FirstOrDefault();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public List<CategoryModel> Search(int pageIndex, int pageSize, out long total, string category_name)
+        public List<CustomerModel> Search(int pageIndex, int pageSize, out long total, string customer_name, string customer_email)
         {
             string msgError = "";
             total = 0;
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_category_search",
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_customer_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
-                    "@category_name", category_name);
+                    "@customer_name", customer_name,
+                    "@customer_email", customer_email);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
-                return dt.ConvertTo<CategoryModel>().ToList();
+                return dt.ConvertTo<CustomerModel>().ToList();
             }
             catch (Exception ex)
             {

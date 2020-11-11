@@ -120,9 +120,9 @@ namespace API.Controllers
 
         [Route("search")]
         [HttpPost]
-        public ReponseModel Search([FromBody] Dictionary<string, object> formData)
+        public ResponseModel Search([FromBody] Dictionary<string, object> formData)
         {
-            var response = new ReponseModel();
+            var response = new ResponseModel();
             try
             {
                 var page = int.Parse(formData["page"].ToString());

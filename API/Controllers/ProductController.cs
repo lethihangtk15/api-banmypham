@@ -99,7 +99,7 @@ namespace API.Controllers
 
         [Route("get-by-id/{id}")]
         [HttpGet]
-        public ProductModel GetDatabyID(string id)
+        public ProductModel GetDatabyID(int id)
         {
             return _productBusiness.GetDatabyID(id);
         }
@@ -131,9 +131,9 @@ namespace API.Controllers
 
         [Route("search-product")]
         [HttpPost]
-        public ReponseModel TK([FromBody] Dictionary<string, object> formData)
+        public ResponseModel TK([FromBody] Dictionary<string, object> formData)
         {
-            var response = new ReponseModel();
+            var response = new ResponseModel();
             try
             {
                 var page = int.Parse(formData["page"].ToString());
@@ -155,11 +155,62 @@ namespace API.Controllers
             }
             return response;
         }
+
+        [Route("search-category")]
+        [HttpPost]
+        public ResponseModel SearchCategory([FromBody] Dictionary<string, object> formData)
+        {
+            var response = new ResponseModel();
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string category_id = "";
+                if (formData.Keys.Contains("category_id") && !string.IsNullOrEmpty(Convert.ToString(formData["category_id"]))) { category_id = Convert.ToString(formData["category_id"]); }
+                long total = 0;
+                var data = _productBusiness.SearchCategory(page, pageSize, out total, category_id);
+                response.TotalItems = total;
+                response.Data = data;
+                response.Page = page;
+                response.PageSize = pageSize;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return response;
+        }
+
+        [Route("search-brand")]
+        [HttpPost]
+        public ResponseModel SearchBrand([FromBody] Dictionary<string, object> formData)
+        {
+            var response = new ResponseModel();
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string brand_id = "";
+                if (formData.Keys.Contains("brand_id") && !string.IsNullOrEmpty(Convert.ToString(formData["brand_id"]))) { brand_id = Convert.ToString(formData["brand_id"]); }
+                long total = 0;
+                var data = _productBusiness.SearchBrand(page, pageSize, out total, brand_id);
+                response.TotalItems = total;
+                response.Data = data;
+                response.Page = page;
+                response.PageSize = pageSize;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return response;
+        }
+
         [Route("search")]
         [HttpPost]
-        public ReponseModel Search([FromBody] Dictionary<string, object> formData)
+        public ResponseModel Search([FromBody] Dictionary<string, object> formData)
         {
-            var response = new ReponseModel();
+            var response = new ResponseModel();
             try
             {
                 var page = int.Parse(formData["page"].ToString());

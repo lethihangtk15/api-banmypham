@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Model
 {
-    public class ReponseModel
+    public class ResponseModel
     {
         public long TotalItems { get; set; }
         public int Page { get; set; }

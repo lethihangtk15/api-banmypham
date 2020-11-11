@@ -72,12 +72,17 @@ namespace API
             services.AddTransient<IDatabaseHelper, DatabaseHelper>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<ICategoryBusiness, CategoryBusiness>();
-            //services.AddTransient<IBrandRepository, BrandRepository>();
-            //services.AddTransient<IBrandBusiness, BrandBusiness>();
+            services.AddTransient<IBrandRepository, BrandRepository>();
+            services.AddTransient<IBrandBusiness, BrandBusiness>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductBusiness, ProductBusiness>();
             services.AddTransient<IUserBusiness, UserBusiness>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICustomerBusiness, CustomerBusiness>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IOrderBusiness, OrderBusiness>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

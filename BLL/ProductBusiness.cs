@@ -27,7 +27,7 @@ namespace BLL
             return _res.Update(model);
         }
 
-        public ProductModel GetDatabyID(string id)
+        public ProductModel GetDatabyID(int id)
         {
             return _res.GetDatabyID(id);
         }
@@ -52,6 +52,14 @@ namespace BLL
         public List<ProductModel> Search(int pageIndex, int pageSize, out long total, string category_id)
         {
             return _res.Search(pageIndex, pageSize, out total, category_id);
+        }
+        public List<ProductModel> SearchCategory(int pageIndex, int pageSize, out long total, string category_id)
+        {
+            return _res.SearchCategory(pageIndex, pageSize, out total, category_id);
+        }
+        public List<ProductModel> SearchBrand(int pageIndex, int pageSize, out long total, string brand_id)
+        {
+            return _res.SearchBrand(pageIndex, pageSize, out total, brand_id);
         }
     }
 }

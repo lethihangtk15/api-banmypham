@@ -89,7 +89,7 @@ namespace DAL
             }
         }
 
-        public ProductModel GetDatabyID(string id)
+        public ProductModel GetDatabyID(int id)
         {
             string msgError = "";
             try
@@ -128,25 +128,6 @@ namespace DAL
             try
             {
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_new");
-                if (!string.IsNullOrEmpty(msgError))
-                    throw new Exception(msgError);
-                return dt.ConvertTo<ProductModel>().ToList();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public List<ProductModel> GetProductRelated(int product_id, string category_id)
-        {
-            string msgError = "";
-            try
-            {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_product_related",
-                    "@product_id", product_id,
-                    "@category_id", category_id
-                     );
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<ProductModel>().ToList();
@@ -204,6 +185,46 @@ namespace DAL
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
                     "@category_id", category_id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<ProductModel> SearchCategory(int pageIndex, int pageSize, out long total, string category_id)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_get_by_category",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@category_id", category_id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<ProductModel> SearchBrand(int pageIndex, int pageSize, out long total, string brand_id)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_by_brand",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@brand_id", brand_id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
