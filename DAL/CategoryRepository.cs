@@ -39,7 +39,7 @@ namespace DAL
                 "@parent_category_id", model.parent_category_id,
                 "@category_id", model.category_id,
                 "@category_name", model.category_name,
-                //"@desc", model.desc,
+                "@desc", model.desc,
                 "@url", model.url);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
@@ -80,7 +80,7 @@ namespace DAL
 
                 "@category_id", model.category_id,
                 "@category_name", model.category_name,
-                //"@desc", model.desc,
+                "@desc", model.desc,
                 "@url", model.url);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
