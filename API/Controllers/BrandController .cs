@@ -41,7 +41,7 @@ namespace API.Controllers
         public BrandModel CreateBrand([FromBody] BrandModel model)
         {
             model.brand_id = Guid.NewGuid().ToString();
-            model.parent_brand_id = "10";
+            model.parent_brand_id = "1";
             _BrandBusiness.Create(model);
             return model;
         }

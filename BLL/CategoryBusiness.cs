@@ -19,7 +19,7 @@ namespace BLL
         public List<CategoryModel> GetData()
         {
             var allItemGroups = _res.GetData();
-            var lstParent = allItemGroups.Where(ds => ds.parent_category_id == null).OrderBy(s => s.seq_num).ToList();
+            var lstParent = allItemGroups.Where(ds => ds.parent_category_id == null).OrderBy(s => s.category_id).ToList();
             foreach (var item in lstParent)
             {
                 item.children = GetHiearchyList(allItemGroups, item);
